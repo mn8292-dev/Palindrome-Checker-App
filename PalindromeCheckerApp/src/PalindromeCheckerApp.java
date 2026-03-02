@@ -12,30 +12,36 @@
  * @Version 1.0
  *
  */
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
-public class PalindromeCheckerApp {
-        public static void main(String[] args) {
-            String original = "level";
-            Stack<Character> stack = new Stack<>();
+public class PalindromeCheckerApp{
+    public static void main(String[] args) {
+        String original = "radar";
 
-            // 1. Push: Insert all characters into the stack
-            for (int i = 0; i < original.length(); i++) {
-                stack.push(original.charAt(i));
-            }
+        // Initialize Data Structures
+        Queue<Character> queue = new LinkedList<>(); // FIFO
+        Stack<Character> stack = new Stack<>();      // LIFO
 
-            String reversed = "";
+        // Enqueue and Push characters
+        for (int i = 0; i < original.length(); i++) {
+            char c = original.charAt(i);
+            queue.add(c);  // Enqueue
+            stack.push(c); // Push
+        }
 
-            // 2. Pop: Remove characters (this naturally reverses the order)
-            while (!stack.isEmpty()) {
-                reversed += stack.pop();
-            }
+        boolean isPalindrome = true;
 
-            // 3. Compare and Print
-            if (original.equals(reversed)) {
-                System.out.println(original + " is a palindrome.");
-            } else {
-                System.out.println(original + " is not a palindrome.");
+        // Compare Dequeue vs Pop
+        while (!queue.isEmpty()) {
+            // Queue.remove() gets the first char, Stack.pop() gets the last char
+            if (!queue.remove().equals(stack.pop())) {
+                isPalindrome = false;
+                break;
             }
         }
+
+        System.out.println("Is \"" + original + "\" a palindrome? " + isPalindrome);
     }
+}
