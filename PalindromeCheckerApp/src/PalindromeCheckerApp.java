@@ -10,33 +10,26 @@
  *
  * RA2411030010302 Developer
  * @Version 1.0
- *
  */
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 public class PalindromeCheckerApp{
     public static void main(String[] args) {
-        String original = "radar";
+        String original = "racecar";
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Initialize Data Structures
-        Queue<Character> queue = new LinkedList<>(); // FIFO
-        Stack<Character> stack = new Stack<>();      // LIFO
-
-        // Enqueue and Push characters
-        for (int i = 0; i < original.length(); i++) {
-            char c = original.charAt(i);
-            queue.add(c);  // Enqueue
-            stack.push(c); // Push
+        // Add characters to the Deque
+        for (char c : original.toCharArray()) {
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare Dequeue vs Pop
-        while (!queue.isEmpty()) {
-            // Queue.remove() gets the first char, Stack.pop() gets the last char
-            if (!queue.remove().equals(stack.pop())) {
+        // Process until 0 or 1 character remains
+        while (deque.size() > 1) {
+            // Remove from both ends and compare
+            if (!deque.removeFirst().equals(deque.removeLast())) {
                 isPalindrome = false;
                 break;
             }
