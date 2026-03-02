@@ -14,18 +14,23 @@
  */
 
 public class PalindromeCheckerApp {
+
     public static void main(String[] args) {
-        // Hardcoded string (String Literal)
-        String original = "madam";
+            // Hardcoded string
+            String original = "racecar";
+            String reversed = "";
 
-        // Use StringBuilder to reverse the string
-        String reversed = new StringBuilder(original).reverse().toString();
+            // Loop: Iterating from the last index to the first
+            for (int i = original.length() - 1; i >= 0; i--) {
+                // String Concatenation: Building the reversed string
+                reversed = reversed + original.charAt(i);
+            }
 
-        // Conditional Statement to check for equality
-        if (original.equalsIgnoreCase(reversed)) {
-            System.out.println("\"" + original + "\" is a palindrome.");
-        } else {
-            System.out.println("\"" + original + "\" is not a palindrome.");
+            // Comparison using .equals() for content check
+            if (original.equals(reversed)) {
+                System.out.println(original + " is a palindrome.");
+            } else {
+                System.out.println(original + " is not a palindrome.");
+            }
         }
     }
-}
