@@ -12,28 +12,28 @@
  * @Version 1.0
  */
 public class PalindromeCheckerApp {
-    public static void main(String[] args) {
-        String original = "kayak";
+        public static void main(String[] args) {
+            String input = "A man, a plan, a canal: Panama";
 
-        if (isPalindrome(original, 0, original.length() - 1)) {
-            System.out.println(original + " is a palindrome.");
-        } else {
-            System.out.println(original + " is not a palindrome.");
+            // 1. Normalization: Remove non-alphanumeric characters and lowercase
+            // Using Regular Expression: [^a-zA-Z0-9] means "anything NOT a letter or number"
+            String cleanString = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+            // 2. Apply logic (Two-Pointer approach for efficiency)
+            boolean isPalindrome = checkPalindrome(cleanString);
+
+            System.out.println("Original: " + input);
+            System.out.println("Normalized: " + cleanString);
+            System.out.println("Is Palindrome? " + isPalindrome);
         }
-    }
 
-    public static boolean isPalindrome(String str, int start, int end) {
-        // Base Condition 1: If pointers cross or meet, all characters matched
-        if (start >= end) {
+        public static boolean checkPalindrome(String str) {
+            int left = 0, right = str.length() - 1;
+            while (left < right) {
+                if (str.charAt(left) != str.charAt(right)) return false;
+                left++;
+                right--;
+            }
             return true;
         }
-
-        // Base Condition 2: If characters at current pointers don't match
-        if (str.charAt(start) != str.charAt(end)) {
-            return false;
-        }
-
-        // Recursive Call: Move inward and check the substring
-        return isPalindrome(str, start + 1, end - 1);
     }
-}
