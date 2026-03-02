@@ -11,66 +11,29 @@
  * RA2411030010302 Developer
  * @Version 1.0
  */
-class Node {
-    char data;
-    Node next;
-    Node(char data) { this.data = data; }
-}
-
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        String str = "rotator";
-        Node head = buildList(str);
+        String original = "kayak";
 
-        if (isPalindrome(head)) {
-            System.out.println(str + " is a palindrome.");
+        if (isPalindrome(original, 0, original.length() - 1)) {
+            System.out.println(original + " is a palindrome.");
         } else {
-            System.out.println(str + " is not a palindrome.");
+            System.out.println(original + " is not a palindrome.");
         }
     }
 
-    public static boolean isPalindrome(Node head) {
-        if (head == null || head.next == null) return true;
-
-        // 1. Find Middle (Fast & Slow Pointers)
-        Node slow = head, fast = head;
-        while (fast != null && fast.next != null) {
-            slow = slow.next;
-            fast = fast.next.next;
+    public static boolean isPalindrome(String str, int start, int end) {
+        // Base Condition 1: If pointers cross or meet, all characters matched
+        if (start >= end) {
+            return true;
         }
 
-        // 2. Reverse Second Half
-        Node secondHalf = reverse(slow);
-        Node firstHalf = head;
-
-        // 3. Compare Halves
-        Node temp = secondHalf;
-        while (temp != null) {
-            if (firstHalf.data != temp.data) return false;
-            firstHalf = firstHalf.next;
-            temp = temp.next;
+        // Base Condition 2: If characters at current pointers don't match
+        if (str.charAt(start) != str.charAt(end)) {
+            return false;
         }
-        return true;
-    }
 
-    private static Node reverse(Node head) {
-        Node prev = null, current = head, next;
-        while (current != null) {
-            next = current.next;
-            current.next = prev;
-            prev = current;
-            current = next;
-        }
-        return prev;
-    }
-
-    private static Node buildList(String s) {
-        Node dummy = new Node(' ');
-        Node curr = dummy;
-        for (char c : s.toCharArray()) {
-            curr.next = new Node(c);
-            curr = curr.next;
-        }
-        return dummy.next;
+        // Recursive Call: Move inward and check the substring
+        return isPalindrome(str, start + 1, end - 1);
     }
 }
