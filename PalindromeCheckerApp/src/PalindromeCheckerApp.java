@@ -12,30 +12,27 @@
  * @Version 1.0
  *
  */
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
         public static void main(String[] args) {
-            String original = "deified";
+            String original = "level";
+            Stack<Character> stack = new Stack<>();
 
-            // Convert string to character array
-            char[] charArray = original.toCharArray();
-
-            boolean isPalindrome = true;
-            int start = 0;
-            int end = charArray.length - 1;
-
-            // Two-Pointer Technique
-            while (start < end) {
-                // Compare characters at both ends
-                if (charArray[start] != charArray[end]) {
-                    isPalindrome = false;
-                    break; // Exit early if a mismatch is found
-                }
-                start++; // Move forward
-                end--;   // Move backward
+            // 1. Push: Insert all characters into the stack
+            for (int i = 0; i < original.length(); i++) {
+                stack.push(original.charAt(i));
             }
 
-            if (isPalindrome) {
+            String reversed = "";
+
+            // 2. Pop: Remove characters (this naturally reverses the order)
+            while (!stack.isEmpty()) {
+                reversed += stack.pop();
+            }
+
+            // 3. Compare and Print
+            if (original.equals(reversed)) {
                 System.out.println(original + " is a palindrome.");
             } else {
                 System.out.println(original + " is not a palindrome.");
