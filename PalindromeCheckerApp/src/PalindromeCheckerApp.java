@@ -14,20 +14,28 @@
  */
 
 public class PalindromeCheckerApp {
+        public static void main(String[] args) {
+            String original = "deified";
 
-    public static void main(String[] args) {
-            // Hardcoded string
-            String original = "racecar";
-            String reversed = "";
+            // Convert string to character array
+            char[] charArray = original.toCharArray();
 
-            // Loop: Iterating from the last index to the first
-            for (int i = original.length() - 1; i >= 0; i--) {
-                // String Concatenation: Building the reversed string
-                reversed = reversed + original.charAt(i);
+            boolean isPalindrome = true;
+            int start = 0;
+            int end = charArray.length - 1;
+
+            // Two-Pointer Technique
+            while (start < end) {
+                // Compare characters at both ends
+                if (charArray[start] != charArray[end]) {
+                    isPalindrome = false;
+                    break; // Exit early if a mismatch is found
+                }
+                start++; // Move forward
+                end--;   // Move backward
             }
 
-            // Comparison using .equals() for content check
-            if (original.equals(reversed)) {
+            if (isPalindrome) {
                 System.out.println(original + " is a palindrome.");
             } else {
                 System.out.println(original + " is not a palindrome.");
