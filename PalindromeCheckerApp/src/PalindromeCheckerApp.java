@@ -14,6 +14,7 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+
 public class PalindromeCheckerApp{
     public static void main(String[] args) {
         String original = "racecar";
