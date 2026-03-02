@@ -10,39 +10,67 @@
  *
  * RA2411030010302 Developer
  * @Version 1.0
- *
  */
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.Stack;
+class Node {
+    char data;
+    Node next;
+    Node(char data) { this.data = data; }
+}
 
-
-public class PalindromeCheckerApp{
+public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        String original = "radar";
+        String str = "rotator";
+        Node head = buildList(str);
 
-        // Initialize Data Structures
-        Queue<Character> queue = new LinkedList<>(); // FIFO
-        Stack<Character> stack = new Stack<>();      // LIFO
+        if (isPalindrome(head)) {
+            System.out.println(str + " is a palindrome.");
+        } else {
+            System.out.println(str + " is not a palindrome.");
+        }
+    }
 
-        // Enqueue and Push characters
-        for (int i = 0; i < original.length(); i++) {
-            char c = original.charAt(i);
-            queue.add(c);  // Enqueue
-            stack.push(c); // Push
+    public static boolean isPalindrome(Node head) {
+        if (head == null || head.next == null) return true;
+
+        // 1. Find Middle (Fast & Slow Pointers)
+        Node slow = head, fast = head;
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        boolean isPalindrome = true;
+        // 2. Reverse Second Half
+        Node secondHalf = reverse(slow);
+        Node firstHalf = head;
 
-        // Compare Dequeue vs Pop
-        while (!queue.isEmpty()) {
-            // Queue.remove() gets the first char, Stack.pop() gets the last char
-            if (!queue.remove().equals(stack.pop())) {
-                isPalindrome = false;
-                break;
-            }
+        // 3. Compare Halves
+        Node temp = secondHalf;
+        while (temp != null) {
+            if (firstHalf.data != temp.data) return false;
+            firstHalf = firstHalf.next;
+            temp = temp.next;
         }
+        return true;
+    }
 
-        System.out.println("Is \"" + original + "\" a palindrome? " + isPalindrome);
+    private static Node reverse(Node head) {
+        Node prev = null, current = head, next;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        return prev;
+    }
+
+    private static Node buildList(String s) {
+        Node dummy = new Node(' ');
+        Node curr = dummy;
+        for (char c : s.toCharArray()) {
+            curr.next = new Node(c);
+            curr = curr.next;
+        }
+        return dummy.next;
     }
 }
