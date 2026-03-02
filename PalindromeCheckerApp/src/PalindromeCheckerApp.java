@@ -15,8 +15,17 @@
 
 public class PalindromeCheckerApp {
     public static void main(String[] args) {
-        System.out.println("Welcome to the Palindrome Management System");
-        System.out.println("Version:1.0");
-        System.out.println("System initialised successfully");
+        // Hardcoded string (String Literal)
+        String original = "madam";
+
+        // Use StringBuilder to reverse the string
+        String reversed = new StringBuilder(original).reverse().toString();
+
+        // Conditional Statement to check for equality
+        if (original.equalsIgnoreCase(reversed)) {
+            System.out.println("\"" + original + "\" is a palindrome.");
+        } else {
+            System.out.println("\"" + original + "\" is not a palindrome.");
+        }
     }
 }
