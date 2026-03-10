@@ -13,36 +13,21 @@
  */
 import java.util.Stack;
 
-public class PalindromeCheckerAppgit checkout main
-gi{
+public class StackStrategy implements PalindromeCheckerApp {
 
-    /**
-     * Core logic using a Stack (LIFO) to validate the string.
-     * Encapsulation: The internal data structure (Stack) is hidden from the caller.
-     */
-    public boolean checkPalindrome(String input) {
-        if (input == null || input.isEmpty()) {
-            return false;
-        }
+    @Override
+    public boolean isValid(String input) {
+        if (input == null) return false;
+        String clean = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
 
-        // Standardize: Remove spaces/punctuation and normalize case
-        String cleanInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-
-        // Data Structure: Using a Stack to reverse the string
         Stack<Character> stack = new Stack<>();
-
-        // Step 1: Push all chars onto the stack
-        for (int i = 0; i < cleanInput.length(); i++) {
-            stack.push(cleanInput.charAt(i));
+        for (char c : clean.toCharArray()) {
+            stack.push(c);
         }
 
-        // Step 2: Pop and compare
-        for (int i = 0; i < cleanInput.length(); i++) {
-            if (cleanInput.charAt(i) != stack.pop()) {
-                return false; // Not a palindrome
-            }
+        for (char c : clean.toCharArray()) {
+            if (c != stack.pop()) return false;
         }
-
-        return true; // All characters matched
+        return true;
     }
-}
+}}
