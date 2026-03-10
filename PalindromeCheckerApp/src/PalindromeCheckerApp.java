@@ -11,29 +11,38 @@
  * RA2411030010302 Developer
  * @Version 1.0
  */
-public class PalindromeCheckerApp {
-        public static void main(String[] args) {
-            String input = "A man, a plan, a canal: Panama";
+import java.util.Stack;
 
-            // 1. Normalization: Remove non-alphanumeric characters and lowercase
-            // Using Regular Expression: [^a-zA-Z0-9] means "anything NOT a letter or number"
-            String cleanString = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+public class PalindromeCheckerAppgit checkout main
+gi{
 
-            // 2. Apply logic (Two-Pointer approach for efficiency)
-            boolean isPalindrome = checkPalindrome(cleanString);
-
-            System.out.println("Original: " + input);
-            System.out.println("Normalized: " + cleanString);
-            System.out.println("Is Palindrome? " + isPalindrome);
+    /**
+     * Core logic using a Stack (LIFO) to validate the string.
+     * Encapsulation: The internal data structure (Stack) is hidden from the caller.
+     */
+    public boolean checkPalindrome(String input) {
+        if (input == null || input.isEmpty()) {
+            return false;
         }
 
-        public static boolean checkPalindrome(String str) {
-            int left = 0, right = str.length() - 1;
-            while (left < right) {
-                if (str.charAt(left) != str.charAt(right)) return false;
-                left++;
-                right--;
+        // Standardize: Remove spaces/punctuation and normalize case
+        String cleanInput = input.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+
+        // Data Structure: Using a Stack to reverse the string
+        Stack<Character> stack = new Stack<>();
+
+        // Step 1: Push all chars onto the stack
+        for (int i = 0; i < cleanInput.length(); i++) {
+            stack.push(cleanInput.charAt(i));
+        }
+
+        // Step 2: Pop and compare
+        for (int i = 0; i < cleanInput.length(); i++) {
+            if (cleanInput.charAt(i) != stack.pop()) {
+                return false; // Not a palindrome
             }
-            return true;
         }
+
+        return true; // All characters matched
     }
+}
